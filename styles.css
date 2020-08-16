@@ -1,0 +1,230 @@
+@keyframes hat-shake {
+  0%, 5% {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(-10deg);
+  }
+  20% {
+    transform: rotate(25deg);
+  }
+  30% {
+    transform: rotate(-25deg);
+  }
+  40% {
+    transform: rotate(20deg);
+  }
+  50% {
+    transform: rotate(-20deg);
+  }
+  60% {
+    transform: rotate(25deg);
+  }
+  70% {
+    transform: rotate(-25deg);
+  }
+  80% {
+    transform: rotate(20deg);
+  }
+  90% {
+    transform: rotate(0deg);
+    opacity: 1;
+    display: block;
+    height: auto;
+    min-height: 8rem;
+  }
+  92% {
+    opacity: 1;
+    height: 0;
+    min-height: 0;
+  }
+  100% {
+    transform: rotate(0deg);
+    display: none;
+    opacity: 0;
+    height: 0;
+    min-height: 0;
+  }
+}
+
+@keyframes names-disappear {
+  0% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    height: auto;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    height: auto;
+  }
+}
+
+@keyframes background-color {
+  0% {
+    background: #ffdfa3;
+  }
+  14% {
+    background: #a3c3ff;
+  }
+  28% {
+    background: #a3ffdf;
+  }
+  42% {
+    background: #ffa3c3;
+  }
+  56% {
+    background: #b8f9ff;
+  }
+  70% {
+    background: #ffbeb8;
+  }
+  84%, 100% {
+    background: #b8ffbe;
+  }
+}
+
+body {
+  font-family: 'Do Hyeon', sans-serif;
+  text-align: center;
+  font-size: 1.25rem;
+  animation: background-color 30s infinite;
+}
+
+input, select, #add-name, #pick-teams {
+  font-size: 1.25rem;
+  font-family: 'Do Hyeon', sans-serif;
+}
+
+#add-name, #pick-teams {
+  background: #cfff91;
+  font-size: 1.25rem;
+  border: 0;
+  padding: 0.1rem 1rem;
+  outline: 0;
+  border-radius: 1rem;
+  border: 3px solid white;
+}
+
+input:hover, select:hover, #add-name:hover, #pick-teams:hover {
+  cursor: pointer;
+}
+
+#add-name {
+  background: #ffc191;
+}
+
+#form {
+  margin: 2rem auto;
+}
+
+#select-teams {
+  margin-top: 3rem;
+}
+
+.team-list {
+  display: inline-block;
+  margin: 1rem;
+  padding: 1rem 2rem;
+  text-align: center;
+  border-radius: 2rem;
+  background: #ffdfa3;
+  border: 3px solid white;
+}
+
+.team-list:nth-of-type(2) {
+  background: #a3c3ff;
+}
+.team-list:nth-of-type(3) {
+  background: #a3ffdf;
+}
+.team-list:nth-of-type(4) {
+  background: #ffa3c3;
+}
+.team-list:nth-of-type(5) {
+  background: #b8f9ff;
+}
+.team-list:nth-of-type(6) {
+  background: #ffbeb8;
+}
+.team-list:nth-of-type(7) {
+  background: #b8ffbe;
+}
+
+
+#hat-brim {
+  width: 90%;
+  height: 3rem;
+  background-color: black;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 2rem;
+}
+
+#hat {
+  width: 70%;
+  background-color:black;
+  min-height: 8rem;
+  max-width: 400px;
+  border-radius: 0 0 6rem 6rem;
+  margin: 0 auto;
+  text-align: center;
+  border-top: 3rem solid #4e4e4e;
+  padding-bottom: 1rem;
+}
+
+#hat p {
+  background: white;
+  display: inline-block;
+  margin: 1rem;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  border-radius: 1rem;
+}
+
+#hat p button {
+  background: white;
+  border: 0;
+  outline: 0;
+}
+
+#hat-container.hat-shake {
+  animation: hat-shake 2s 0.5s 1 forwards;
+}
+
+#hat-container.hat-shake #hat p {
+  opacity: 0;
+  animation: names-disappear 0.5s 0s 1 forwards;
+}
+
+#results {
+  opacity: 0;
+  height: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#hat-container.hat-shake ~ #results {
+  animation: appear 0.5s 2.5s 1 forwards;
+}
+
+header {
+  margin-top: 2rem;
+}
+
+#container.done header, #container.done #form, #container.done label, #container.done select, #container.done #pick-teams {
+  opacity: 0;
+  display: names-disappear 0.5s 0s 1 forwards;
+}

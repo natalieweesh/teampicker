@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+    <link href="./styles.css" rel="stylesheet" type="text/css" />
+    <title>Team Picker</title>
+  </head>
+  <body>
+    <div id="container">
+      <header>Put your names in the hat and it will pick teams for you</header>
+      <form id="form">
+        <input id="name-input" type="text" name="name" />
+        <button id="add-name" type="submit">Add name to hat</button>
+      </form>
+      <div id="hat-container">
+        <div id="hat-brim"></div>
+        <div id="hat"></div>
+      </div>
+      <div id="results"></div>
+      <label>Number of teams:</label>
+      <select id="select-teams">
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+      </select>
+      <br/><br/>
+      <button id="pick-teams">Pick teams!</button>
+    </div>
+    <script>
+      (()=>{
+        const allNames = [];
+        document.getElementById('form').onsubmit = (e) => {
+          e.preventDefault();
+          addName();
+        }
+        console.log('hola')
+        const addName = () => {
+          const nameInput = document.getElementById('name-input');
+          if (nameInput.value.trim() !== "") {
+            const name = nameInput.value;
+            console.log('add', name);
+            const newChild = document.createElement('p');
+            newChild.id = 'p-' + name;
+            newChild.innerText = name;
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'delete'
+            deleteButton.innerText = 'X';
+            deleteButton.onclick = () => {
+              console.log('delete poop', name);
+              document.getElementById('p-'+name).remove();
+              const i = allNames.indexOf(name);
+              allNames.splice(i, 1);
+            }
+            newChild.appendChild(deleteButton);
+            document.getElementById('hat').appendChild(newChild);
+            allNames.push(name);
+            nameInput.value = "";
+          }
+        }
+        document.getElementById('pick-teams').onclick = (e) => {
+          document.getElementById('hat-container').className = 'hat-shake';
+          document.getElementById('container').className = 'done';
+          if (allNames.length > 0) {
+            let allNamesCopy = allNames;
+            let finalTeams = [];
+            const teams = document.getElementById('select-teams').value;
+            console.log('pick the teams', teams, allNames)
+            for (let k=0; k < teams; k++) {
+              finalTeams.push([]);
+            }
+            while (allNamesCopy.length > 0) {
+              for (let j=0; j < teams; j++) {
+                if (allNamesCopy.length > 0) {
+                  const rand = Math.floor(Math.random() * allNamesCopy.length);
+                  console.log('rand', rand);
+                  finalTeams[j].push(allNamesCopy.splice(rand, 1)[0]);
+                }
+              }
+            }
+            console.log('all names now', allNamesCopy);
+            console.log('done', finalTeams);
+            for (let l=0; l < finalTeams.length; l++) {
+              const teamResult = document.createElement('div');
+              teamResult.className = 'team-list'
+              for (let m=0; m < finalTeams[l].length; m++) {
+                const name = finalTeams[l][m];
+                const teamMember = document.createElement('p');
+                teamMember.innerText = name;
+                teamResult.appendChild(teamMember);
+              }
+              document.getElementById('results').appendChild(teamResult);
+            }
+          }
+        };
+      })();
+    </script>
+  </body>
+</html>
